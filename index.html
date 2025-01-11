@@ -8,62 +8,318 @@
     <title>Pokémon Türkçe Yama</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Add Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <style>
-        /* Center game buttons */
+        :root {
+            --primary-color: #4a90e2;
+            --success-color: #2ecc71;
+            --background-color: #f8f9fa;
+            --box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            --frlg-color: #ff6b6b;
+            --frlg-hover: #ff5252;
+            --emerald-color: #20c997;
+            --emerald-hover: #12b886;
+            --platinum-color: #868e96;
+            --platinum-hover: #495057;
+            --firered-color: #ff6b6b;
+            --firered-hover: #ff5252;
+            --leafgreen-color: #4ade80;
+            --leafgreen-hover: #22c55e;
+        }
+
+        body {
+            background-color: var(--background-color);
+            padding-bottom: 100px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        .navbar {
+            box-shadow: var(--box-shadow);
+            background: white !important;
+            padding: 10px 0;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
         .game-selection {
             display: flex;
             justify-content: center;
-            margin-top: 30px;
+            margin-top: 25px;
+            gap: 15px;
             flex-wrap: wrap;
         }
 
         .game-selection .btn {
-            margin: 10px;
-            width: 150px;
+            width: 200px;
+            padding: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        /* Style the options and sub-options menu */
+        .game-selection .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow);
+        }
+
+        .game-selection .btn[onclick*="frlg"] {
+            border-color: var(--frlg-color);
+            color: var(--frlg-color);
+        }
+        .game-selection .btn[onclick*="frlg"]:hover {
+            background-color: var(--frlg-color);
+            color: white;
+        }
+
+        .game-selection .btn[onclick*="emerald"] {
+            border-color: var(--emerald-color);
+            color: var(--emerald-color);
+        }
+        .game-selection .btn[onclick*="emerald"]:hover {
+            background-color: var(--emerald-color);
+            color: white;
+        }
+
+        .game-selection .btn[onclick*="platinum"] {
+            border-color: var(--platinum-color);
+            color: var(--platinum-color);
+        }
+        .game-selection .btn[onclick*="platinum"]:hover {
+            background-color: var(--platinum-color);
+            color: white;
+        }
+
         .options-container,
         .sub-options-container {
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 20px;
             margin-top: 20px;
+            background: white;
+            box-shadow: var(--box-shadow);
+        }
+
+        .option-wrapper {
+            display: flex;
+            align-items: stretch;
+            gap: 15px;
+            margin-bottom: 15px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+
+        .option-box {
+            flex: 1;
+            padding: 15px;
             border: none;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 0;
+            background: white;
         }
 
-        /* Style for option buttons */
-        .btn-option {
-            width: 100%;
-            margin-bottom: 10px;
+        .option-description {
+            margin-bottom: 0;
+        }
+
+        .option-description strong {
+            font-size: 1.1rem;
+            color: #2c3e50;
             display: block;
-            text-align: left;
-            padding: 15px; /* Increased padding */
-            font-size: 16px; /* Increased font size */
-            border: 2px solid #007bff; /* Blue border */
-            border-radius: 5px;
-            background-color: #f8f9fa; /* Light background color */
-            color: #333; /* Dark text color for contrast */
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Smooth transition for hover effect */
+            margin-bottom: 8px;
         }
 
-        /* Style for selected option */
-        .btn-option.active,
-        .btn-option:hover { /* Hover effect */
-            background-color: #e9ecef; /* Slightly darker background on hover */
-            color: #007bff; /* Blue text color on hover */
-            border-color: #0056b3; /* Darker blue border on hover */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+        .option-description p {
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
         }
 
-        /* Responsive image sizes */
-        .img-fluid {
-            max-width: 100%;
-            height: auto;
+        .button-container {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 1px solid #eee;
         }
 
-        body {
-            padding-bottom: 100px;
+        .button-container .btn {
+            padding: 8px 20px;
+            font-weight: 500;
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .button-container .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-success {
+            background-color: var (--success-color);
+            border-color: var (--success-color);
+        }
+
+        h2, h3 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        /* Modal improvements */
+        .modal-content {
+            border-radius: 15px;
+        }
+
+        .modal-header,
+        .modal-body,
+        .modal-footer {
+            border-bottom: none;
+            padding: 15px 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .option-wrapper {
+                flex-direction: column;
+            }
+
+            .button-container {
+                border-left: none;
+                border-top: 1px solid #eee;
+                justify-content: center;
+            }
+
+            .button-container .btn {
+                width: 100%;
+            }
+        }
+
+        .version-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* Specific layout for FRLG versions */
+        .version-cards.frlg-grid {
+            justify-content: center;
+        }
+
+        .version-cards.frlg-grid .version-card {
+            flex: 1;
+            min-width: calc(50% - 20px);
+            max-width: calc(50% - 20px);
+        }
+
+        /* Default layout for other versions */
+        .version-cards.default-grid .version-card {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        @media (max-width: 768px) {
+            .version-cards.frlg-grid .version-card {
+                min-width: 100%;
+                max-width: 100%;
+            }
+        }
+
+        .version-card {
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.2s;
+            height: 100%;
+        }
+
+        .version-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .version-card.frlg {
+            border-left: 4px solid var(--frlg-color);
+        }
+        .version-card.emerald {
+            border-left: 4px solid var(--emerald-color);
+        }
+        .version-card.platinum {
+            border-left: 4px solid var(--platinum-color);
+        }
+        .version-card.firered {
+            border-left: 4px solid var(--firered-color);
+        }
+        .version-card.leafgreen {
+            border-left: 4px solid var(--leafgreen-color);
+        }
+
+        .version-header {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .version-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 8px;
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .version-badge.frlg {
+            background-color: #fff0f0;
+            color: var(--frlg-color);
+        }
+        .version-badge.emerald {
+            background-color: #e6f8f5;
+            color: var(--emerald-color);
+        }
+        .version-badge.platinum {
+            background-color: #f1f3f5;
+            color: var(--platinum-color);
+        }
+        .version-badge.firered {
+            background-color: #fff0f0;
+            color: var(--firered-color);
+        }
+        .version-badge.leafgreen {
+            background-color: #f0fff4;
+            color: var(--leafgreen-color);
+        }
+
+        .version-body {
+            flex: 1;
+            padding: 15px;
+        }
+
+        .version-footer {
+            padding: 15px;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+            text-align: right;
+        }
+
+        .tooltip-icon {
+            cursor: help;
+            color: #6c757d;
+            margin-left: 5px;
+        }
+
+        .options-container {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 </head>
@@ -173,12 +429,16 @@
                         {
                             name: "AteşKırmızısı A Versiyonu",
                             description: "Eğer ilk defa Pokémon oynuyorsanız bu versiyonu tercih edebilirsiniz. A versiyonu, saldırılar ve yetenekler dahil %100 Türkçedir.",
-                            link: "https://drive.google.com/file/d/1r-JJKkXo9xaUZnvzbtAxeCoVqi_oO2bG/view?usp=sharing"
+                            link: "https://drive.google.com/file/d/1r-JJKkXo9xaUZnvzbtAxeCoVqi_oO2bG/view?usp=sharing",
+                            recommendation: "Yeni başlayanlar için önerilir",
+                            tooltipText: "Türkçe saldırı ve yetenek isimleri ile oyuna alışmanız daha kolay olacaktır."
                         },
                         {
                             name: "AteşKırmızısı B Versiyonu",
                             description: "Daha önce İngilizce Pokémon oynadıysanız bu versiyonu tercih edebilirsiniz. Saldırı isimleri, yetenekler anlam karmaşası yaşanmaması ve alışıklık bozulmaması için B versiyonunda Türkçeye çevrilmemiştir.",
-                            link: "https://drive.google.com/file/d/1Gw4Qsqo02TatJLq3MDFX8eVX_zd5QpkT/view?usp=sharing"
+                            link: "https://drive.google.com/file/d/1Gw4Qsqo02TatJLq3MDFX8eVX_zd5QpkT/view?usp=sharing",
+                            recommendation: "Deneyimli oyuncular için önerilir",
+                            tooltipText: "İngilizce saldırı ve yetenek isimleri ile internetteki rehberleri takip etmeniz daha kolay olacaktır."
                         }
                     ]
                 },
@@ -189,12 +449,16 @@
                         {
                             name: "YaprakYeşili A Versiyonu",
                             description: "Eğer ilk defa Pokémon oynuyorsanız bu versiyonu tercih edebilirsiniz. A versiyonu, saldırılar ve yetenekler dahil %100 Türkçedir.",
-                            link: "https://drive.google.com/file/d/1uupIA0SmFfQ8AwwIfFH7D9k3jjxpuOHq/view?usp=sharing"
+                            link: "https://drive.google.com/file/d/1uupIA0SmFfQ8AwwIfFH7D9k3jjxpuOHq/view?usp=sharing",
+                            recommendation: "Yeni başlayanlar için önerilir",
+                            tooltipText: "Türkçe saldırı ve yetenek isimleri ile oyuna alışmanız daha kolay olacaktır."
                         },
                         {
                             name: "YaprakYeşili B Versiyonu",
                             description: "Daha önce İngilizce Pokémon oynadıysanız bu versiyonu tercih edebilirsiniz. Saldırı isimleri, yetenekler anlam karmaşası yaşanmaması ve alışıklık bozulmaması için B versiyonunda Türkçeye çevrilmemiştir.",
-                            link: "https://drive.google.com/file/d/1TzXJFgW-tR-BEfdwQdZLOiC5QRy0Y7vl/view?usp=sharing"
+                            link: "https://drive.google.com/file/d/1TzXJFgW-tR-BEfdwQdZLOiC5QRy0Y7vl/view?usp=sharing",
+                            recommendation: "Deneyimli oyuncular için önerilir",
+                            tooltipText: "İngilizce saldırı ve yetenek isimleri ile internetteki rehberleri takip etmeniz daha kolay olacaktır."
                         }
                     ]
                 }
@@ -203,19 +467,24 @@
                 {
                     name: "A Versiyonu",
                     description: "Eğer ilk defa Pokémon oynuyorsanız bu versiyonu tercih edebilirsiniz. A versiyonu, saldırılar ve yetenekler dahil %100 Türkçedir.",
-                    link: "https://drive.google.com/file/d/192I00imMWS-MTQHGmEEtFJ1rbF5KclnY/view?usp=sharing"
+                    link: "https://drive.google.com/file/d/192I00imMWS-MTQHGmEEtFJ1rbF5KclnY/view?usp=sharing",
+                    recommendation: "Yeni başlayanlar için önerilir",
+                    tooltipText: "Türkçe saldırı ve yetenek isimleri ile oyuna alışmanız daha kolay olacaktır."
                 },
                 {
                     name: "B Versiyonu",
                     description: "Daha önce İngilizce Pokémon oynadıysanız bu versiyonu tercih edebilirsiniz. Saldırı isimleri, yetenekler anlam karmaşası yaşanmaması ve alışıklık bozulmaması için B versiyonunda Türkçeye çevrilmemiştir.",
-                    link: "https://drive.google.com/file/d/1JsfbYHPIzK1LZFZNw7zfMAI29fJIx3hA/view?usp=sharing"
+                    link: "https://drive.google.com/file/d/1JsfbYHPIzK1LZFZNw7zfMAI29fJIx3hA/view?usp=sharing",
+                    recommendation: "Deneyimli oyuncular için önerilir",
+                    tooltipText: "İngilizce saldırı ve yetenek isimleri ile internetteki rehberleri takip etmeniz daha kolay olacaktır."
                 }
             ],
             platinum: [
                 {
                     name: "Pokémon Platin",
-                    description: "Herhangi bir özelleştirme yok. Direkt olarak bu seçeneği seçip indirebilirsiniz.",
-                    link: "https://drive.google.com/file/d/1iJcJw5mFQIc2qtfQhPL8wyA0FuMtfP45/view?usp=sharing"
+                    description: "Sağ alttaki tuş ile Türkçe Pokémon Platin versiyonunu indirip oynamaya başlayabilirsiniz.",
+                    link: "https://drive.google.com/file/d/1iJcJw5mFQIc2qtfQhPL8wyA0FuMtfP45/view?usp=sharing",
+                    recommendation: "Tek versiyon"
                 }
             ]
         };
@@ -223,58 +492,80 @@
         function selectGame(game) {
             const optionsContainer = document.getElementById('optionsContainer');
             const optionsDiv = document.getElementById('options');
-            const subOptionsContainer = document.getElementById('subOptionsContainer');
-            const subOptionsDiv = document.getElementById('subOptions');
-            const downloadContainer = document.getElementById('downloadContainer');
-
+            
             optionsContainer.style.display = 'block';
-            subOptionsContainer.style.display = 'none';
-            downloadContainer.style.display = 'none';
             optionsDiv.innerHTML = ''; // Clear previous options
-            subOptionsDiv.innerHTML = ''; // Clear previous sub-options
 
-            gameOptions[game].forEach(option => {
-                if (option.subOptions) {
-                    // Main option for games like FireRed/LeafGreen
-                    const optionHtml = `
-                        <button class="btn btn-option" onclick="showSubOptions('${option.name}', '${game}')">
-                            <strong>${option.name}</strong>: ${option.description}
-                        </button>
-                    `;
-                    optionsDiv.innerHTML += optionHtml;
-                } else {
-                    // Direct download option for games like Platinum
-                    const optionHtml = `
-                        <button class="btn btn-option" onclick="prepareDownload('${option.link}')">
-                            <strong>${option.name}</strong>: ${option.description}
-                        </button>
-                    `;
-                    optionsDiv.innerHTML += optionHtml;
-                }
-            });
-        }
-
-        function showSubOptions(optionName, game) {
-            const subOptionsContainer = document.getElementById('subOptionsContainer');
-            const subOptionsDiv = document.getElementById('subOptions');
-            const downloadContainer = document.getElementById('downloadContainer');
-
-            subOptionsContainer.style.display = 'block';
-            subOptionsDiv.innerHTML = ''; // Clear previous sub-options
-            downloadContainer.style.display = 'none';
-
-            gameOptions[game].forEach(option => {
-                if (option.name === optionName) {
-                    option.subOptions.forEach(subOption => {
-                        const subOptionHtml = `
-                            <button class="btn btn-option" onclick="prepareDownload('${subOption.link}')">
-                                <strong>${subOption.name}</strong>: ${subOption.description}
-                            </button>
+            const versions = gameOptions[game];
+            let cardsHtml = `<div class="version-cards ${game === 'frlg' ? 'frlg-grid' : 'default-grid'}">`;
+            
+            if (game === 'frlg') {
+                // Special handling for FireRed/LeafGreen
+                versions.forEach(version => {
+                    const gameType = version.name.includes('Ateş') ? 'firered' : 'leafgreen';
+                    version.subOptions.forEach(subOption => {
+                        cardsHtml += `
+                            <div class="version-card ${gameType}">
+                                <div class="version-header">
+                                    <h4>${subOption.name}</h4>
+                                    <span class="version-badge ${gameType}">
+                                        ${subOption.recommendation}
+                                    </span>
+                                    ${subOption.tooltipText ? `
+                                    <i class="bi bi-question-circle tooltip-icon" 
+                                       data-bs-toggle="tooltip" 
+                                       title="${subOption.tooltipText}">
+                                    </i>` : ''}
+                                </div>
+                                <div class="version-body">
+                                    <p>${subOption.description}</p>
+                                </div>
+                                <div class="version-footer">
+                                    <button class="btn btn-success" onclick="prepareDownload('${subOption.link}')">
+                                        <i class="bi bi-download"></i>
+                                        İndir
+                                    </button>
+                                </div>
+                            </div>
                         `;
-                        subOptionsDiv.innerHTML += subOptionHtml;
                     });
-                }
-            });
+                });
+            } else {
+                // Handle other games
+                versions.forEach(version => {
+                    cardsHtml += `
+                        <div class="version-card ${game}">
+                            <div class="version-header">
+                                <h4>${version.name}</h4>
+                                <span class="version-badge ${game}">
+                                    ${version.recommendation}
+                                </span>
+                                ${version.tooltipText ? `
+                                <i class="bi bi-question-circle tooltip-icon" 
+                                   data-bs-toggle="tooltip" 
+                                   title="${version.tooltipText}">
+                                </i>` : ''}
+                            </div>
+                            <div class="version-body">
+                                <p>${version.description}</p>
+                            </div>
+                            <div class="version-footer">
+                                <button class="btn btn-success" onclick="prepareDownload('${version.link}')">
+                                    <i class="bi bi-download"></i>
+                                    İndir
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            cardsHtml += '</div>';
+            optionsDiv.innerHTML = cardsHtml;
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
         }
 
         function prepareDownload(link) {
